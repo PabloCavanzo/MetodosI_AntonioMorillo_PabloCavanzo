@@ -13,4 +13,6 @@ fig, ax = plt.subplots()
 r = espiral()[0]
 th = espiral()[1]
 ax.plot(r,th)
+ax.set_title("Espiral de Arquímedes")
+ax.grid(True)
 plt.show()

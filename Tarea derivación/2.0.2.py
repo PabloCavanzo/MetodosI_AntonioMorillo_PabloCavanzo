@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def carga_de_datos (ruta: str) -> dict:
+def carga_de_datos (ruta: str) -> tuple:
     archivo = open(ruta, "r")
     linea = archivo.readline()
     X = []
@@ -22,6 +22,7 @@ def carga_de_datos (ruta: str) -> dict:
     return np.array(X), np.array(Y)
 
 ruta = "/Users/armr1/OneDrive/Documents/Universidad/Tercer Semestre/Métodos Computacionales I/datos tarea 1.txt"
+#Colocar la ruta del archivo txt local
 
 x = carga_de_datos(ruta)[0]
 y = carga_de_datos(ruta)[1]
@@ -42,5 +43,6 @@ def encontrar_maximos(x,y):
 px = encontrar_maximos(x,y)[0]
 py = encontrar_maximos(x,y)[1]
 ax.scatter(px,py,color='red')
+ax.set_title
 
 plt.show()
