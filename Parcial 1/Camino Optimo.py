@@ -58,5 +58,29 @@ def d2_ct(x):
     return d2(d1_ct, x)
 
 x = np.linspace(-1, 1, 20)
-roots = get_roots(d1_ct, d2_ct, x)
-print("Raíces encontradas:", roots)
+min = get_roots(d1_ct, d2_ct, x)
+print("Mínimos encontrados:", min)
+
+def incidencia(min,T=(-3, 2), R=(2, -2)):
+    xT = min-T[0]
+    yT = min-T[1]
+    xR = min-R[0]
+    yR = min-R[1]
+    
+    alpha1 = np.arctan(yT/xT)
+    alpha2 = np.arctan(yR/xR)
+    
+    return alpha1, alpha2
+
+print(incidencia(min))    
+
+def ley_de_snell(a0, a1, n0=1.00, n1=1.33):
+  if (n0/n1) == (np.sin(a0)/np.sin(a1)):
+        return True
+  else:
+        return False
+
+if ley_de_snell(incidencia(min)[0], incidencia(min)[1]):
+    print('Se cumple la ley de Snell')
+else:
+    print('No se cumple la ley de Snell')
