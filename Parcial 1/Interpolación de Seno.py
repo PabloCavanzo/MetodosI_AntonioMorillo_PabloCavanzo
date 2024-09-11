@@ -30,6 +30,7 @@ error_y = np.abs(coords_y-y_real)
 
 #Plot
 fig, ax = plt.subplots()
+ax.scatter(X,Y,color="#FF3A20",label="Puntos del soporte")
 ax.plot(coords_x,y_real,color="red",label="sin(x)")
 ax.plot(coords_x,coords_y,label="Polinomio")
 ax.plot(coords_x,error_y,color="red",linestyle="--",label="Error de estimación")
