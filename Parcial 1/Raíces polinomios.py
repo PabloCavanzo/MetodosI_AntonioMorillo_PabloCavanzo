@@ -17,7 +17,7 @@ def polinomio_n(n):
     
     return evaluar, f
         
-def newton_raphson(f, df, xn, itmax=1000, precision=1e-6):
+def newton_raphson(f, df, xn, itmax=1000, precision=1e-10):
     error = 1
     it = 1
     while error > precision and it < itmax:
