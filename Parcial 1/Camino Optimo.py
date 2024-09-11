@@ -67,8 +67,8 @@ def incidencia(min,T=(-3, 2), R=(2, -2)):
     xR = min-R[0]
     yR = R[1]
     
-    alpha1 = np.arctan(yT/xT)
-    alpha2 = np.arctan(yR/xR)
+    alpha1 = np.arctan(xT/yT)
+    alpha2 = np.arctan(xR/yR)
     
     return list([alpha1, alpha2])
 
@@ -76,12 +76,8 @@ print("Los ángulos de incidencia son: ",incidencia(min))
 
 def ley_de_snell(a0, a1, n0=1.00, n1=1.33):
   if (n0/n1) == (np.sin(a1)/np.sin(a0)):
-      print(np.sin(a0)/np.sin(a1))
-      print((n0/n1))
       return True
   else:
-      print(np.sin(a1)/np.sin(a0))
-      print((n0/n1))
       return False
 
 if ley_de_snell(incidencia(min)[0], incidencia(min)[1]):
