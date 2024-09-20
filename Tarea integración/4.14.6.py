@@ -31,4 +31,4 @@ def Simpson(a,b,f,h):
     print(ip)
     print(ip.subs(x,b).evalf()-ip.subs(x,a).evalf())
     
-Simpson(1,8,funcion,0.1)
+Simpson(-0.01,0.01,funcion,0.1)
