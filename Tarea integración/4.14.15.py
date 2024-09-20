@@ -33,7 +33,7 @@ def newton_raphson(f, df, xn, itmax=1000, precision=1e-6):
     else:
         return xn
 
-def get_roots(f,df,X,tol=6):
+def get_roots(f,df,X,tol=5):
     roots=np.array([])
     for i in X:
         root = newton_raphson(f,df,i)
@@ -47,7 +47,9 @@ def n_raices(n):
     X=np.linspace(-1,1,200)
     for i in range(1,n+1):
         print("Polinomio #" + str(i))
-        print(list(get_roots(polinomio_n(i)[0],derivada,X)))
+        x = get_roots(polinomio_n(i)[0],derivada,X)
+        print(list(x))
+        print(len(x))
         print("")
 
 def GetWeights(Roots,Dpoly):
