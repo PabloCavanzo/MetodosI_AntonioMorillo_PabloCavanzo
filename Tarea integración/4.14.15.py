@@ -53,12 +53,9 @@ def n_raices(n):
         print("")
 
 def GetWeights(Roots,Dpoly):
-
   Weights = np.array([])
-
   x = sp.Symbol('x',real=True)
   dpn = sp.lambdify([x],Dpoly,'numpy')
-
   for r in Roots:
     Weights = np.append(Weights,2/((1-r**2)*dpn(r)**2))
 
