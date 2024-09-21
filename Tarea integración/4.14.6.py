@@ -1,4 +1,3 @@
-#4.14.8.6
 import numpy as np
 import sympy as sp
 
