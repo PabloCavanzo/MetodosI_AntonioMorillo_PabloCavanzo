@@ -1,33 +1,45 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+import sympy as sp
+import math
 
-# Define los cuatro puntos en el espacio 3D
-p1 = np.array([0, 0, 0])
-p2 = np.array([1, 0, 0])
-p3 = np.array([1, 1, 0])
-p4 = np.array([0, 1, 0])
+def sgn(x):
+    if x > 0:
+        return 1
+    elif x == 0:
+        return 0
+    else:
+        return -1
 
-# Crear una figura y un eje 3D
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+X = np.linspace(-1,1,10)
+sgn_vectorized = np.vectorize(sgn)
+Y = sgn_vectorized(X)
 
-# Crear una colección de polígonos para el plano
-faces = [[p1, p2, p3, p4]]  # Definimos la cara del plano
-poly3d = Poly3DCollection(faces, alpha=0.5, facecolors='cyan')
-
-# Añadir la colección al gráfico
-ax.add_collection3d(poly3d)
-
-# Configuración de los ejes
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
-
-# Establecer límites de los ejes para mejor visualización
-ax.set_xlim([0, 10])
-ax.set_ylim([0, 10])
-ax.set_zlim([0, 10])
-
-# Mostrar el gráfico
+fig,ax=plt.subplots()
+ax.scatter(X,Y)
 plt.show()
+
+roots = np.polynomial.legendre.leggauss(15)
+
+def polinomio_n(n):
+    x = sp.Symbol("x")
+    f1 = (x**2 - 1) **n
+    c = 1/(2**n * math.factorial(n))
+    df1 = sp.diff(f1,x,n)
+    f = sp.expand(c*df1)
+    
+    def evaluar(xi):
+        return f.subs("x",xi).evalf()
+    
+    return evaluar, f
+
+def primeros_n_polinomios(n):
+    poly = []
+    for i in range(n):
+        print("a")
+        poly.append(polinomio_n(i)[1])
+    
+    return poly    
+
+print(primeros_n_polinomios(20))
