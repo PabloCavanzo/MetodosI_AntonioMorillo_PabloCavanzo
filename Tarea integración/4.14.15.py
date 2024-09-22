@@ -49,7 +49,6 @@ def n_raices(n):
         print("Polinomio #" + str(i))
         x = get_roots(polinomio_n(i)[0],derivada,X)
         print(list(x))
-        print(len(x))
         print("")
 
 def GetWeights(Roots,Dpoly):
@@ -70,5 +69,7 @@ def n_pesos(n):
         print(list(GetWeights(Roots,Dpoly)))
         print("")
 
+# (a) Halle los ceros de los primeros 20 polinomios de Legendre.
 n_raices(20)
+# (b) Halle los pesos de ponderaci´on para los primeros 20 polinomios de Legendre.
 n_pesos(20)
