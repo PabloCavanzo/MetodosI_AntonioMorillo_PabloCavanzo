@@ -54,10 +54,10 @@ def coeficiente(f, Weights, Roots, n):
     a2 = np.array([f(x) for x in t2])
     b2 = np.array([p_eval(x) for x in t2])
     
-    integral0_1 = np.sum(Weights * a1 * b1)
-    integral1_0 = np.sum(Weights * a2 * b2)
+    integral0_1 = 0.5*np.sum(Weights * a1 * b1)
+    integral1_0 = 0.5*np.sum(Weights * a2 * b2)
     
-    return (n+0.5)*(integral0_1 + integral1_0)/2
+    return (n+0.5)*(integral0_1 + integral1_0)
 
 def primeros_n_coeficientes(f, Weights, Roots, n):
     coeff = np.array([])
