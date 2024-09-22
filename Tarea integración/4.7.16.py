@@ -1,19 +1,17 @@
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
 
-# Define el tamaño de la grilla
-rows, cols = 10, 10
+roots, weights = np.polynomial.legendre.leggauss(15)
 
-# Crea una lista de colores
-colors = plt.cm.viridis(np.linspace(0, 1, rows * cols))
+def funcion(x):
+    return 1 / (1 + x**4)
+def funcion2(x):
+    return (x**2) / (1 + x**4)
 
-# Genera las coordenadas de los puntos en la grilla
-x = np.repeat(np.arange(cols), rows)
-y = np.tile(np.arange(rows), cols)
+t = 0.5 * (roots + 1)
+weights *= 0.5
 
-# Grafica los puntos con colores distintos
-plt.scatter(x, y, color=colors)
-plt.xlim(-1, cols)
-plt.ylim(-1, rows)
-plt.gca().set_aspect('equal', adjustable='box')
-plt.show()
+integral1 = np.sum(weights * funcion(t))
+integral2 = np.sum(weights * funcion2(t))
+
+print(integral1 + integral2)
