@@ -40,7 +40,7 @@ def integral_a_b():
     
 integral_a_b()
 
-# Dado que h = (b − a)/3, muestre que los puntos intermedios son (2a+b)/3 y (a+2b)/3 respectivamente
+# b) Dado que h = (b − a)/3, muestre que los puntos intermedios son (2a+b)/3 y (a+2b)/3 respectivamente
 
 def puntos_intermedios():
     a = sp.Symbol("a")

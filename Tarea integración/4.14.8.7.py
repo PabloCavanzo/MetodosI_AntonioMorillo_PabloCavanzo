@@ -7,11 +7,19 @@ import math
 def funcion(x, y):
     return np.sqrt(-x**2 - y**2 + 1)
 
+#a) Cree una grilla entre −R y R en el plano xy, donde el número de cuadrados 
+#en cada lado de la grilla sea n. Es decir, la grilla tendría n + 1 
+#puntos en cada eje, y n^2 cuadrados pequeños.
+
 def crear_grilla(n):
     X = np.linspace(-1, 1, n)
     Y = np.linspace(-1, 1, n)
     X, Y = np.meshgrid(X, Y)
     return X, Y
+
+#b) Para cada cuadrado peque˜no calculo el promedio de la funci´on en los cuatro v´ertices
+#y multiplique por el ´area del cuadrado peque˜no. Si el punto queda fuera de la esfera
+#asuma que el valor de la funci´on f(x, y) es cero.
 
 def volumen(grilla,ax,f):
     at=0
