@@ -16,6 +16,8 @@ def polinomio(X,Y):
         pol += Y[i]*Lagrange(X,i)
     return pol
 
+# a) Encontrar las funciones cardinales de dicha interpolación e integrar
+
 def integral_a_b():
     a = sp.Symbol("a")
     b = sp.Symbol("b")
@@ -34,6 +36,23 @@ def integral_a_b():
     int = p.subs(sp.Symbol("x"),b) - p.subs(sp.Symbol("x"),a) 
     print("")
     print("Regla de Simpson 3/8: ", sp.factor(int))
-    
+    print("")
     
 integral_a_b()
+
+# Dado que h = (b − a)/3, muestre que los puntos intermedios son (2a+b)/3 y (a+2b)/3 respectivamente
+
+def puntos_intermedios():
+    a = sp.Symbol("a")
+    b = sp.Symbol("b")
+    f = sp.Function("f")
+    h = (b-a)/3
+    
+    p1 = sp.factor(a+h)
+    p2 = sp.factor(a+2*h)
+    print("Primer punto:", a)
+    print("Segundo punto:", p1)
+    print("Tercer punto:", p2)
+    print("Cuarto punto:", b)
+
+puntos_intermedios()
