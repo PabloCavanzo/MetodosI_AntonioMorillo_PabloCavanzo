@@ -42,13 +42,33 @@ def get_roots(f,df,X,tol=7):
             if root not in roots:
                 roots = np.append(roots,root)          
     return np.sort(roots)
+     
+def GetWeights(n):
+    X = np.linspace(0,50,200)
+    Weights = np.array([])
+    poly = polinomio_n(n)[0]   
+    Roots = get_roots(poly,derivada,X)
+    poly_cons = polinomio_n(n+1)[0]
+    
+    for r in Roots:
+        Weights = np.append(Weights, r / ((n+1)**2 * poly_cons(r)**2))
 
-def n_raices(n):
-    X=np.linspace(0,15,200)
-    for i in range(1,n+1):
-        print("Polinomio #" + str(i))
-        print(list(get_roots(polinomio_n(i)[0],derivada,X)))
-        print(polinomio_n(i)[1])
-        print("")
+    return Weights
 
-n_raices(5)
+def funcion(x):
+    return np.exp(x) * (x**3 / (np.exp(x)-1))
+
+def integral_n(n):
+    roots, weights = np.polynomial.laguerre.laggauss(n)
+    integral = np.sum(weights * funcion(roots))
+    return integral
+
+def error(estimado,real):
+    return estimado/real
+
+X = np.array([x for x in range(2,11)])
+I = np.array([integral_n(x) for x in X])
+Y = error(I, np.pi**4/15)
+print(I)
+plt.scatter(X,Y)
+plt.show()

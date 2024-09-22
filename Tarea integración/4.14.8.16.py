@@ -14,4 +14,4 @@ weights *= 0.5
 integral1 = np.sum(weights * funcion(t))
 integral2 = np.sum(weights * funcion2(t))
 
-print(integral1 + integral2)
+print("La integral es aproximadamente:",integral1 + integral2)
