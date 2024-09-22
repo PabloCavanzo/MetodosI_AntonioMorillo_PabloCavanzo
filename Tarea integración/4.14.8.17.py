@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+# Cálculo pesos Laguerre: 
 def derivada(f,x,h=0.01):
     return (f(x+h)-f(x-h))/(2*h)
 
@@ -55,6 +56,15 @@ def GetWeights(n):
 
     return Weights
 
+def primeros_n_pesos(n):
+    for i in range(1,n):
+        print("Polinomio #", i)
+        print(GetWeights(i))
+        print("")
+        
+primeros_n_pesos(5)
+
+# a) Integral con gauss-laguerre n=3:
 def funcion(x):
     return np.exp(x) * (x**3 / (np.exp(x)-1))
 
@@ -63,12 +73,17 @@ def integral_n(n):
     integral = np.sum(weights * funcion(roots))
     return integral
 
+print("Aproximación con n=3:", integral_n(3))
+
+# b) Gráfica error
 def error(estimado,real):
     return estimado/real
 
+fig, ax = plt.subplots()
 X = np.array([x for x in range(2,11)])
 I = np.array([integral_n(x) for x in X])
 Y = error(I, np.pi**4/15)
-print(I)
-plt.scatter(X,Y)
+ax.scatter(X,Y,label="Error",color="#2a9d8f")
+ax.grid(True)
+plt.legend()
 plt.show()
