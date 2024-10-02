@@ -10,7 +10,7 @@ def Jacobi(A,b,x, itmax = 1000, tolerancia = 1e-16):
                 if i != j:
                     suma += A[i][j]*x[j]
             
-            x[i] = (b[i] - suma)/A[i][i]
+            x_new[i] = (b[i] - suma)/A[i][i]
                     
         if np.linalg.norm(np.dot(A,x_new)-b) < tolerancia:
             break
@@ -40,3 +40,9 @@ def GaussSeidel(A,b,x, itmax = 100, tolerancia = 1e-16):
 
 A = np.array([[3,-1,-1],[-1,3,1],[2,1,4]])
 b = np.array([1.,3.,7.])
+x0 = np.array([0.,0.,0.])
+
+xj,itj = Jacobi(A,b,x0)
+xg,itg = GaussSeidel(A,b,x0)
+
+print(xj,itj,xg,itg)
