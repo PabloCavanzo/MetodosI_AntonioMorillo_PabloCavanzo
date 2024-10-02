@@ -1,4 +1,3 @@
-#5.7.12
 import numpy as np
 
 def GetJacobian(f, x, h=1e-3):
