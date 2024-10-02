@@ -23,4 +23,6 @@ A = np.array([[3,-1,-1],[-1,3,1],[2,1,4]])
 b = np.array([1.,3.,7.])
 x0 = np.array([0.,0.,0.])
 
-xg,itg = GaussSeidel(A,b,x0)
+x,it = GaussSeidel(A,b,x0)
+
+print("Matriz A:\n",A,"\n\nVector b:\n",b,"\n\nSolución:\n",x)
