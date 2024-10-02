@@ -5,6 +5,7 @@ def mult_matrices(M1,M2):
     p = M2.shape[1]
     n = M1.shape[0]
     M = np.zeros((m,p))
+    M = M.astype(float)
     
     for i in range(m):
         for j in range(p):
@@ -22,4 +23,4 @@ B = np.array([[4,-2,1],
               [0,0,2]])
 
 C = mult_matrices(A,B)
-print(C)
+print("Matriz A:\n",A,"\n\nMatriz B:\n",B,"\n\nMatriz A*B:\n",C)
