@@ -54,4 +54,4 @@ Sistema_2=(lambda x1,x2,x3: 6*x1 - 2*np.cos(x2*x3) - 1,\
 x0_2 = np.array([0.,0.,0.])
 
 print("Vector solución sistema 1: ", newton_generalizado(Sistema_1,x0_1))
-print("Vector solución sistema 2: ",newton_generalizado(Sistema_2,x0_2))
+print("Vector solución sistema 2: ", newton_generalizado(Sistema_2,x0_2))
