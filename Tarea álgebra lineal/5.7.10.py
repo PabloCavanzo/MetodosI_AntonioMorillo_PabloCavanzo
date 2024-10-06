@@ -1,19 +1,5 @@
 import numpy as np
 
-def mult_matrices(M1,M2):
-    m = M1.shape[0]
-    p = M2.shape[1]
-    n = M1.shape[0]
-    M = np.zeros((m,p))
-    M = M.astype(float)
-    
-    for i in range(m):
-        for j in range(p):
-            for k in range(n):
-                M[i][j] += M1[i][k] * M2[k][j] 
-            
-    return M
-
 def diagnoalizacion_Jacobi(A,itmax=1000,tol=1e-16):
     n = A.shape[0]
     
@@ -31,7 +17,7 @@ def diagnoalizacion_Jacobi(A,itmax=1000,tol=1e-16):
                         i_max = i
                         j_max = j
     
-        if np.abs(max) < tol:
+        if max < tol:
             return A
         
         if A[j_max][j_max] == A[i_max][i_max]:
