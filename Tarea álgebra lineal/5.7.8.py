@@ -14,5 +14,5 @@ def factor_LU(M):
         
     return L,U
 
-A = np.array([[4.,-2.,1.],[20.,-7.,12.],[-8.,13., 21.]])
+A = np.array([[4.,-2.,1.],[20.,-7.,12.],[-8.,13., 17.]])
 print("Matriz A:\n",A,"\n\nMatriz L:\n",factor_LU(A)[0],"\n\nMatriz U:\n",factor_LU(A)[1])
