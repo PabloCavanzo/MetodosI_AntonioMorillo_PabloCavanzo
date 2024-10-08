@@ -13,7 +13,7 @@ def GetJacobian2(f, x, h):
             rf[j] += h
             rb[j] -= h
             
-            J[i, j] = (f[i](*rf) - f[i](*rb)) / (2 * h)
+            J[i][j] = (f[i](*rf) - f[i](*rb)) / (2 * h)
       
     return J
 
