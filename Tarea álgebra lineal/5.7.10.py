@@ -2,6 +2,7 @@ import numpy as np
 
 def diagnoalizacion_Jacobi(A,itmax=1000,tol=1e-16):
     n = A.shape[0]
+    V = np.eye(n)
     
     for it in range(itmax):
         max = 0
@@ -33,27 +34,31 @@ def diagnoalizacion_Jacobi(A,itmax=1000,tol=1e-16):
         J_inv = np.linalg.inv(J)
     
         A = J_inv @ A @ J
+        V @= J
                    
-    return A
+    return A, V.T
+
+def get_values(H):
+    n = H.shape[0]
+    valores = np.array([])
+    for i in range(n):
+        for j in range(n):
+        
+            if np.abs(H[i][j]) < 1e-10:
+                H[i][j] = 0
+            if i == j:
+                valores = np.sort(np.append(valores,H[i][j]))
+                
+    return H, valores
 
 A = np.array([[4.,1.,1.],[1.,3.,2.],[1.,2.,5.]])
-D = diagnoalizacion_Jacobi(A)
-
-n = np.shape(A)[0]
-valores = np.array([])
-vectores = np.array([])
-
-for i in range(n):
-    for j in range(n):
-        
-        if np.abs(D[i][j]) < 1e-10:
-            D[i][j] = 0
-        if i == j:
-            valores = np.sort(np.append(valores,D[i][j]))
+tupla = diagnoalizacion_Jacobi(A)
+D, valores = get_values(tupla[0])
+vectores = tupla[1]
             
 print("Matriz A:\n",A,
       "\n\nMatriz Diagonal:\n",D,
-      "\n\nValores propios:\n",valores,
-      "\n\nVectores propios:\n",vectores,
+      "\n\nValores propios calculados:\n",valores,
+      "\n\nVectores propios calculados:\n",vectores,
       "\n\nValores propios numpy:\n", np.sort(np.linalg.eig(A)[0]),
-      "\n\nVectores propios numpy:\n",  np.linalg.eig(A)[1])                  
+      "\n\nVectores propios numpy:\n",  np.linalg.eig(A)[1].T)                  
