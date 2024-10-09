@@ -26,9 +26,6 @@ def evalf(f,x):
         
     return vector
 
-def norma(f,x):
-  return np.linalg.norm(evalf(f,x))**2
-
 def newton_generalizado(f,x,itmax=1000,error=1e-16):
     it = 0
     metric = 1
@@ -39,22 +36,9 @@ def newton_generalizado(f,x,itmax=1000,error=1e-16):
         F_eval = evalf(f,x)
         constant = np.dot(J_inv,F_eval)
         x = x - constant
-        metric = norma(f,x)
+        metric = np.linalg.norm(evalf(f,x))**2
         
     return x, it
-
-def gradiente(f,x,h=0.01):
-    n = x.size
-    g = x.copy()
-    for i in range(n):
-        rf = x.copy()
-        rb = x.copy()
-        rf[i] = rf[i] + h
-        rb[i] = rb[i] - h
-        g[i] = (f(*rf) - f(*rb)) / (2*h)
-        
-    return g
-    
 
 def new_x(f, x, lr):
     n = x.size
