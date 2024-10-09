@@ -27,7 +27,7 @@ def evalf(f,x):
     return vector
 
 def norma(f,x):
-  return 0.5*np.linalg.norm(evalf(f,x))**2
+  return np.linalg.norm(evalf(f,x))**2
 
 def newton_generalizado(f,x,itmax=1000,error=1e-16):
     it = 0
