@@ -33,9 +33,8 @@ def get_matrix(n):
     else:
         return J3
     
-def conmutador(i,j):
+def conmutator(i,j):
     A,B =   get_matrix(i),get_matrix(j)
-    
     P1 = mult_matrices(A,B)
     P2 = mult_matrices(B,A)
     return P1 - P2
@@ -66,7 +65,7 @@ def evaluar_epsilon(i,j,k):
 
 i = int(input("Ingrese la i: "))
 j = int(input("Ingrese la j: "))
-conm = conmutador(i,j)
+conm = conmutator(i,j)
 k = evaluar_k(conm)
 eps = evaluar_epsilon(i,j,k)
 print("\nConmutator:\n",conm)
