@@ -41,7 +41,37 @@ def newton_generalizado(f,x,itmax=1000,error=1e-16):
         x = x - constant
         metric = norma(f,x)
         
-    return x
+    return x, it
+
+def gradiente(f,x,h=0.01):
+    n = x.size
+    g = x.copy()
+    for i in range(n):
+        rf = x.copy()
+        rb = x.copy()
+        rf[i] = rf[i] + h
+        rb[i] = rb[i] - h
+        g[i] = (f(*rf) - f(*rb)) / (2*h)
+        
+    return g
+    
+
+def new_x(f, x, lr):
+    n = x.size
+    J = GetJacobian(f,x)
+    G = evalf(f,x)
+    x = x - lr * np.dot(J,G)
+        
+    return x,G
+
+def descenso(f, x, lr,itmax=10000, error=1e-16):
+    it = 0
+    for i in range(itmax):
+        it += 1
+        x, G = new_x(f, x, lr)
+        if np.linalg.norm(0.5*np.dot(G.T,G)) < error:
+            break
+    return x, it
 
 Sistema_1=(lambda x1,x2: np.log(x1**2 + x2**2) - np.sin(x1*x2) - np.log(2) - np.log(np.pi),\
             lambda x1,x2: np.exp(x1-x2)+np.cos(x1*x2))
@@ -52,5 +82,12 @@ Sistema_2=(lambda x1,x2,x3: 6*x1 - 2*np.cos(x2*x3) - 1,\
             lambda x1,x2,x3: 60*x3 + 3*np.exp(-x1*x2) + 10*np.pi - 3)
 x0_2 = np.array([0.,0.,0.])
 
-print("Vector solución sistema 1: ", newton_generalizado(Sistema_1,x0_1))
-print("Vector solución sistema 2: ", newton_generalizado(Sistema_2,x0_2))
+S1N = newton_generalizado(Sistema_1,x0_1)
+S2N = newton_generalizado(Sistema_2,x0_2)
+S1D = descenso(Sistema_1,x0_1,0.01)
+S2D = descenso(Sistema_2,x0_2,0.0005)
+
+print("Vector solución sistema 1 (Newton):    ", S1N[0], "en", S1N[1], "iteraciones.")
+print("Vector solución sistema 2 (Newton):    ", S2N[0], "en", S2N[1], "iteraciones.")
+print("Vector solución sistema 1 (Gradiente): ", S1D[0], "en", S1D[1], "iteraciones.")
+print("Vector solución sistema 2 (Gradiente): ", S2D[0], "en", S2D[1], "iteraciones.")
