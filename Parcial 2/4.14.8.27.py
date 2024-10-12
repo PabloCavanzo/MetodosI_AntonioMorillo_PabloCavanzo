@@ -57,7 +57,8 @@ Sistema = (
     lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**7 + w1*x1**7 + w2*x2**7 + w3*x3**7
 )
 
-while True:
+integrar = True
+while integrar:
     try:
         r0 = np.random.uniform(-1., 1., size=8)
         s = descenso(Sistema, r0)
@@ -70,7 +71,7 @@ while True:
             print("Pesos:", pesos)
             print("Raíces:", raices)
             print(f"Estimación de la integral: {integral}")
-            break
+            integrar = False
         else:
             print(f"Integral fuera de rango: {integral}. Intentando de nuevo...")
 
