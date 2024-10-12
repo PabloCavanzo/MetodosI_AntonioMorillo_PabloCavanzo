@@ -1,15 +1,48 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 #a) Cargue N = 50 puntos y pesos de Gauss para calcular el campo gravitacional sobre el disco.
 roots, weights = np.polynomial.legendre.leggauss(50)
 
 #b) Defina la función de la Ecuación (4.208).
-def campo (x,y,z):
-    pass
+def funcion(x,y,z,r,phi):
+    return z*r / ( (x**2 + y**2 + z**2 - 2*r*x*np.cos(phi) - 2*r*y*np.sin(phi) + r ** 2) ** 1.5)
 
 #c) Defina una función para calcular la integral usando la forma de doble cuadratura (Ecuación (4.170)).
+def integral(f,x,y,z):
+    k = -1.9429303960
+    
+    t1 = 0.5 * (2*np.pi*roots + 2*np.pi)
+    t2 = 0.5 * (roots + 1)
+    
+    weights1 = weights * np.pi
+    weights2 = weights * 0.5
+    
+    inte = 0
+    
+    for i in range(0,50):
+        for j in range(0,50):
+            inte += weights1[i] * weights2[j]* f(x,y,z,t2[i],t1[j])
+            
+    return k * inte
+    
 #d) Verifique que el campo gravitaci´on en el punto (0., 0., 0.2) es efectivamente g = −9.813646 m/s^2.
+print(integral(funcion,0,0,0.2))
+
 #e) Usando coordenadas polares:
+phi_values = np.linspace(0,2*np.pi,10)
+R = [0, 0.125, 0.25, 0.38, 0.5]
+
+fig, ax = plt.subplots()
+for r in R:
+    x_data = np.array([r*np.cos(phi) for phi in phi_values])
+    y_data = np.array([r*np.sin(phi) for phi in phi_values])
+    int_values = integral(funcion,x_data,y_data,0.2)
+    ax.plot(phi_values,int_values)
+    
+plt.show()
+
+
 #f) ¿Cómo interpreta que la gravedad no depende del ángulo sobre la tierra?
 #g) ¿Qué valores tiene la gravedad en el ecuador R = 0.5 y en el borde R = 1?
 #h) ¿Qué podría decirle a un amig@ terraplanista con base a sus resultados teóricos?
