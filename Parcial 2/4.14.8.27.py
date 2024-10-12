@@ -47,14 +47,14 @@ def descenso(f, x, lr=0.01,itmax=10000, error=1e-16):
     return x, it
   
 Sistema = (
-    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0 + w1 + w2 + w3 - 2,  # k = 0
-    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0 + w1*x1 + w2*x2 + w3*x3,  # k = 1
-    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**2 + w1*x1**2 + w2*x2**2 + w3*x3**2 - 2/3,  # k = 2
-    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**3 + w1*x1**3 + w2*x2**3 + w3*x3**3,  # k = 3
-    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**4 + w1*x1**4 + w2*x2**4 + w3*x3**4 - 2/5,  # k = 4
-    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**5 + w1*x1**5 + w2*x2**5 + w3*x3**5,  # k = 5
-    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**6 + w1*x1**6 + w2*x2**6 + w3*x3**6 - 2/7,  # k = 6
-    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**7 + w1*x1**7 + w2*x2**7 + w3*x3**7  # k = 7
+    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0 + w1 + w2 + w3 - 2,
+    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0 + w1*x1 + w2*x2 + w3*x3,
+    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**2 + w1*x1**2 + w2*x2**2 + w3*x3**2 - 2/3,
+    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**3 + w1*x1**3 + w2*x2**3 + w3*x3**3,
+    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**4 + w1*x1**4 + w2*x2**4 + w3*x3**4 - 2/5,
+    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**5 + w1*x1**5 + w2*x2**5 + w3*x3**5,
+    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**6 + w1*x1**6 + w2*x2**6 + w3*x3**6 - 2/7,
+    lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**7 + w1*x1**7 + w2*x2**7 + w3*x3**7
 )
 
 r0 = np.random.uniform(-1.,1.,size=8)

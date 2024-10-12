@@ -44,7 +44,3 @@ ax.set_xlabel("ϕ[Rad]")
 ax.set_ylabel("g[m/s^2]")
 plt.legend()
 plt.show()
-
-#f) ¿Cómo interpreta que la gravedad no depende del ángulo sobre la tierra?
-#g) ¿Qué valores tiene la gravedad en el ecuador R = 0.5 y en el borde R = 1?
-#h) ¿Qué podría decirle a un amig@ terraplanista con base a sus resultados teóricos?

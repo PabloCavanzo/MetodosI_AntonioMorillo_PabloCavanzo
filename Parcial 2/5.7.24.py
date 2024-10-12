@@ -22,7 +22,7 @@ class Trader:
     def set_fitness(self):
         return np.min(self.capital * (self.weights * self.shares - 1))
     
-    def mutation(self, mutation_rate=0.1, mutation_scale=0.05):
+    def mutation(self, mutation_rate=0.05, mutation_scale=0.01):
         for i in range(len(self.weights)):
             if rd.random() < mutation_rate:
                 self.weights[i] += np.random.normal(0, mutation_scale)
@@ -72,13 +72,11 @@ def evolve(capital, cuotas, epochs, population_size=500):
             next_generation += [child1, child2]
         
         Traders = next_generation[:population_size]
-        
-        #print(f"Epoch {_+1}: Best Fitness = {Traders[0].fitness}")
     
     plt.plot(range(1, epochs+1), best_fitness_over_time)
-    plt.xlabel('Epoch')
-    plt.ylabel('Best Fitness')
-    plt.title('Evolution of Best Fitness Over Time')
+    plt.xlabel('Época')
+    plt.ylabel('Mejor Aptitud')
+    plt.title('Evolución')
     plt.show()
     
     return Traders[0].weights
@@ -86,7 +84,8 @@ def evolve(capital, cuotas, epochs, population_size=500):
 
 cuotas =  np.array([8.51, 10.68, 12.24, 13.66, 15.37, 17.15, 19.66, 24.69])
 weights = evolve(1000000, cuotas, 500, population_size=500)
-manu_weights = np.array([0.185, 0.152, 0.137, 0.125, 0.116, 0.107, 0.096, 0.082])
-print("Mejores pesos:", weights)
-print(np.min(1000000*(weights*cuotas-1)))
-print(np.min(1000000*(manu_weights*cuotas-1)))
+prof_weights = np.array([0.185, 0.152, 0.137, 0.125, 0.116, 0.107, 0.096, 0.082])
+pesos_yo = np.array([0.20221668, 0.16116429, 0.14055939, 0.12629439, 0.11193354, 0.10060435,0.08754264, 0.06968473])
+#print(np.min(1000000*(pesos_yo*cuotas-1)))
+#print(np.min(1000000*(prof_weights*cuotas-1)))
+print("Mejores pesos encontrados:", weights)
