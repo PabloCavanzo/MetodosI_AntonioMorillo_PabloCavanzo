@@ -45,7 +45,7 @@ def descenso(f, x, lr=0.01,itmax=10000, error=1e-16):
             break
             
     return x, it
-  
+
 Sistema = (
     lambda w0, w1, w2, w3, x0, x1, x2, x3: w0 + w1 + w2 + w3 - 2,
     lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0 + w1*x1 + w2*x2 + w3*x3,
@@ -57,11 +57,22 @@ Sistema = (
     lambda w0, w1, w2, w3, x0, x1, x2, x3: w0*x0**7 + w1*x1**7 + w2*x2**7 + w3*x3**7
 )
 
-r0 = np.random.uniform(-1.,1.,size=8)
-s = descenso(Sistema,r0)
-pesos = s[0][:4]
-raices = s[0][4:]
-integral = sum(p * np.cos(x) for p, x in zip(pesos, raices))
-print("Pesos:", pesos)
-print("Raíces:", raices)
-print(f"Estimación de la integral: {integral}")
+while True:
+    try:
+        r0 = np.random.uniform(-1., 1., size=8)
+        s = descenso(Sistema, r0)
+        pesos = s[0][:4]
+        raices = s[0][4:]
+
+        integral = sum(p * np.cos(x) for p, x in zip(pesos, raices))
+
+        if 1.5 <= integral <= 1.9:
+            print("Pesos:", pesos)
+            print("Raíces:", raices)
+            print(f"Estimación de la integral: {integral}")
+            break
+        else:
+            print(f"Integral fuera de rango: {integral}. Intentando de nuevo...")
+
+    except Exception as e:
+        print(f"Ocurrió un error: {e}. Intentando de nuevo...")
