@@ -83,7 +83,7 @@ def evolve(capital, cuotas, epochs, population_size=500):
     
     return Traders[0].weights
 
-# Execute the evolution process
+
 cuotas =  np.array([8.51, 10.68, 12.24, 13.66, 15.37, 17.15, 19.66, 24.69])
 weights = evolve(1000000, cuotas, 500, population_size=500)
 manu_weights = np.array([0.185, 0.152, 0.137, 0.125, 0.116, 0.107, 0.096, 0.082])
