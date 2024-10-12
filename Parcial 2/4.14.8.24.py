@@ -38,10 +38,12 @@ for r in R:
     x_data = np.array([r*np.cos(phi) for phi in phi_values])
     y_data = np.array([r*np.sin(phi) for phi in phi_values])
     int_values = integral(funcion,x_data,y_data,0.2)
-    ax.plot(phi_values,int_values)
+    ax.plot(phi_values,int_values,linestyle="--",label=f"R={r}")
     
+ax.set_xlabel("ϕ[Rad]")
+ax.set_ylabel("g[m/s^2]")
+plt.legend()
 plt.show()
-
 
 #f) ¿Cómo interpreta que la gravedad no depende del ángulo sobre la tierra?
 #g) ¿Qué valores tiene la gravedad en el ecuador R = 0.5 y en el borde R = 1?
