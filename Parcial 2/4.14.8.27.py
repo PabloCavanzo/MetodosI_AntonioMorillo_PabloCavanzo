@@ -66,7 +66,7 @@ while True:
 
         integral = sum(p * np.cos(x) for p, x in zip(pesos, raices))
 
-        if 1.5 <= integral <= 1.9:
+        if 1.6 <= integral <= 1.7:
             print("Pesos:", pesos)
             print("Raíces:", raices)
             print(f"Estimación de la integral: {integral}")
