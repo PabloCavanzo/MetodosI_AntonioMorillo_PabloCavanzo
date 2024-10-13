@@ -3,7 +3,7 @@ import warnings
 
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 
-def GetJacobian(f, x, h=0.00001):
+def GetJacobian(f, x, h=0.001):
     m = len(f)
     n = x.shape[0]
     J = np.zeros((m, n))
@@ -48,17 +48,18 @@ def new_x(f, x, lr):
 
 def descenso(f, x, lr=0.01,itmax=10000, error=1e-6):
     it = 0
+    x0 = x.copy()
     for i in range(itmax):
         it += 1
-        x, G = new_x(f, x, lr)
+        x0, G = new_x(f, x0, lr)
         if np.linalg.norm(0.5*np.dot(G.T,G)) < 0.005:
-            lr = 0.0001
+            lr = 0.001
         if np.linalg.norm(0.5*np.dot(G.T,G)) < error:
             break
         if np.isnan(x).all():
             break
             
-    return x, it
+    return x0, it
 
 Sistema = (
     lambda w0, w1, w2, w3, x0, x1, x2, x3: w0 + w1 + w2 + w3 - 2,
