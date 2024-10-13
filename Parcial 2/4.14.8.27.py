@@ -1,19 +1,29 @@
 import numpy as np
 
-def GetJacobian(f, x, h=1e-3):
+def GetJacobian(f, x, h=0.001):
     m = len(f)
     n = x.shape[0]
     J = np.zeros((m, n))
   
     for i in range(m):
         for j in range(n):
+            rf2 = x.copy()
             rf = x.copy()
             rb = x.copy()
-      
+            rb2 = x.copy()
+
+            [1/(12*h), -2/(3*h), 0, 2/(3*h), -1/(12*h)]
+            rf2[j] += 2 * h
             rf[j] += h
             rb[j] -= h
+            rb2[j] -= 2 * h
             
-            J[i, j] = (f[i](*rf) - f[i](*rb)) / (2 * h)
+            f_rf2 = f[i](*rf2)
+            f_rf = f[i](*rf)
+            f_rb = f[i](*rb)
+            f_rb2 = f[i](*rb2)
+            
+            J[i, j] = (-f_rf2 + 8 * f_rf - 8 * f_rb + f_rb2) / (12 * h)
       
     return J
 
@@ -34,7 +44,7 @@ def new_x(f, x, lr):
         
     return x,G
 
-def descenso(f, x, lr=0.01,itmax=10000, error=1e-6):
+def descenso(f, x, lr=0.01,itmax=1000, error=1e-6):
     it = 0
     for i in range(itmax):
         it += 1
