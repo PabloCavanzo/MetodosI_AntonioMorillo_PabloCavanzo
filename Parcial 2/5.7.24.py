@@ -84,7 +84,7 @@ def evolve(capital, cuotas, epochs, population_size=500):
 cuotas =  np.array([8.51, 10.68, 12.24, 13.66, 15.37, 17.15, 19.66, 24.69])
 capital = 1000000
 weights = evolve(capital, cuotas, 500, 500)
-print("Mejores pesos encontrados:", np.round(weights[0],3), "con el trader #", weights[1])
+print("Mejores pesos encontrados:", np.round(weights[0],3), "con el trader #" + str(weights[1]))
 
 doc_weights = np.array([0.185, 0.152, 0.137, 0.125, 0.116, 0.107, 0.096, 0.082])
 print("Retorno con los pesos encontrados:   ",np.min(1000000*(weights[0]*cuotas-1)))

@@ -34,7 +34,7 @@ def new_x(f, x, lr):
         
     return x,G
 
-def descenso(f, x, lr=0.01,itmax=1000, error=1e-16):
+def descenso(f, x, lr=0.01,itmax=10000, error=1e-6):
     it = 0
     for i in range(itmax):
         it += 1
