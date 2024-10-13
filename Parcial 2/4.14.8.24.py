@@ -44,3 +44,13 @@ ax.set_xlabel("ϕ[Rad]")
 ax.set_ylabel("g[m/s^2]")
 plt.legend()
 plt.show()
+
+# Punto G (Valor de g para R = 0.5 y R = 1)
+Rg = [0.5, 1]
+
+print('Apartado G:')
+for i in Rg:
+    x_data = np.array([i*np.cos(phi) for phi in phi_values])
+    y_data = np.array([i*np.sin(phi) for phi in phi_values])
+    int_v = integral(funcion,x_data,y_data,0.2)
+    print(f'g(R={i}) = {int_v[-1]}')
