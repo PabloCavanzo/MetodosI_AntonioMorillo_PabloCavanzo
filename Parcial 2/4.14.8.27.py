@@ -1,6 +1,9 @@
 import numpy as np
+import warnings
 
-def GetJacobian(f, x, h=0.001):
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+
+def GetJacobian(f, x, h=0.00001):
     m = len(f)
     n = x.shape[0]
     J = np.zeros((m, n))
@@ -11,8 +14,7 @@ def GetJacobian(f, x, h=0.001):
             rf = x.copy()
             rb = x.copy()
             rb2 = x.copy()
-
-            [1/(12*h), -2/(3*h), 0, 2/(3*h), -1/(12*h)]
+            
             rf2[j] += 2 * h
             rf[j] += h
             rb[j] -= h
@@ -44,14 +46,17 @@ def new_x(f, x, lr):
         
     return x,G
 
-def descenso(f, x, lr=0.01,itmax=1000, error=1e-6):
+def descenso(f, x, lr=0.01,itmax=10000, error=1e-6):
     it = 0
     for i in range(itmax):
         it += 1
         x, G = new_x(f, x, lr)
         if np.linalg.norm(0.5*np.dot(G.T,G)) < 0.005:
             lr = 0.001
+            print("si")
         if np.linalg.norm(0.5*np.dot(G.T,G)) < error:
+            break
+        if np.isnan(x).all():
             break
             
     return x, it
