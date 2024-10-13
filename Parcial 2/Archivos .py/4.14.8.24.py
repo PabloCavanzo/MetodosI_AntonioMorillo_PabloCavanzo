@@ -11,27 +11,27 @@ def funcion(x,y,z,r,phi):
 #c) Defina una función para calcular la integral usando la forma de doble cuadratura (Ecuación (4.170)).
 def integral(f,x,y,z):
     k = -1.9429303960
-    
+
     t1 = 0.5 * (2*np.pi*roots + 2*np.pi)
     t2 = 0.5 * (roots + 1)
-    
+
     weights1 = weights * np.pi
     weights2 = weights * 0.5
-    
+
     inte = 0
-    
+
     for i in range(0,50):
         for j in range(0,50):
             inte += weights1[i] * weights2[j]* f(x,y,z,t2[i],t1[j])
-            
+
     return k * inte
-    
-#d) Verifique que el campo gravitaci´on en el punto (0., 0., 0.2) es efectivamente g = −9.813646 m/s^2.
-print(integral(funcion,0,0,0.2))
+
+#d) Verifique que el campo gravitación en el punto (0, 0, 0.2) es efectivamente g = −9.813646 m/s^2.
+print("Campo gravitacional en (0,0,0.2):",integral(funcion,0,0,0.2))
 
 #e) Usando coordenadas polares:
 phi_values = np.linspace(0,2*np.pi,10)
-R = [0, 0.125, 0.25, 0.38, 0.5]
+R = [0, 0.125, 0.25, 0.38, 0.5,]
 
 fig, ax = plt.subplots()
 for r in R:
@@ -39,7 +39,7 @@ for r in R:
     y_data = np.array([r*np.sin(phi) for phi in phi_values])
     int_values = integral(funcion,x_data,y_data,0.2)
     ax.plot(phi_values,int_values,linestyle="--",label=f"R={r}")
-    
+
 ax.set_xlabel("ϕ[Rad]")
 ax.set_ylabel("g[m/s^2]")
 plt.legend()
