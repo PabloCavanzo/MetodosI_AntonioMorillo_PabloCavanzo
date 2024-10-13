@@ -85,5 +85,18 @@ cuotas =  np.array([8.51, 10.68, 12.24, 13.66, 15.37, 17.15, 19.66, 24.69])
 capital = 1000000
 weights = evolve(capital, cuotas, 500, 500)
 print("Mejores pesos encontrados:", np.round(weights[0],3), "con el trader #" + str(weights[1]))
-print("Retorno mínimo con los pesos encontrados:   ",np.min(1000000*(weights[0]*cuotas-1)))
-print("Retorno máximo con los pesos encontrados: ",np.sum(1000000*(weights*cuotas-1)))
+
+inversiones = weights[0] * capital
+print("\nInversiones en cada opción:")
+for i, inversion in enumerate(inversiones, start=1):
+    print(f"Opción {i}: ${inversion:,.2f}")
+
+retornos = capital * (weights[0] * cuotas - 1)
+print("\nRetornos para cada opción:")
+for i in range(len(retornos)):
+    print(f"Opción {i}: ${retornos[i]:,.2f}")
+
+retorno_min = np.min(retornos)
+retorno_max = np.sum(retornos)
+print(f"\nRetorno Mínimo: ${retorno_min:,.2f}")
+print(f"Retorno Máximo: ${retorno_max:,.2f}")
