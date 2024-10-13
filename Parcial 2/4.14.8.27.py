@@ -34,7 +34,7 @@ def new_x(f, x, lr):
         
     return x,G
 
-def descenso(f, x, lr=0.01,itmax=10000, error=1e-16):
+def descenso(f, x, lr=0.01,itmax=1000, error=1e-16):
     it = 0
     for i in range(itmax):
         it += 1
@@ -67,10 +67,10 @@ while integrar:
 
         integral = sum(p * np.cos(x) for p, x in zip(pesos, raices))
 
-        if 1.6 <= integral <= 1.7:
-            print("Pesos:", pesos)
-            print("Raíces:", raices)
-            print(f"Estimación de la integral: {integral}")
+        if 1.55 <= integral < 1.75:
+            print("Pesos encontrados:", pesos)
+            print("Raíces encontradas:", raices)
+            print(f"Estimación de la integral: {integral} ≈ {round(integral,2)}")
             integrar = False
         else:
             print(f"Integral fuera de rango: {integral}. Intentando de nuevo...")

@@ -37,7 +37,7 @@ class Trader:
 def selection_pair(population):
     selected = []
     for _ in range(2):
-        contenders = rd.sample(population, 3)
+        contenders = rd.sample(population, 2)
         contender = max(contenders, key=lambda trader: trader.fitness)
         selected.append(contender)
     
@@ -58,11 +58,10 @@ def evolve(capital, cuotas, epochs, population_size=500):
     Traders = generate_population(population_size, capital, cuotas)
     best_fitness_over_time = []
     
-    for _ in range(epochs):     
+    for _ in range(epochs):
+        best_fitness_over_time.append(Traders[0].fitness)
         Traders.sort(key=lambda trader: trader.fitness, reverse=True)
         next_generation = Traders[0:2]
-        
-        best_fitness_over_time.append(Traders[0].fitness)
         
         while len(next_generation) < population_size:
             parents = selection_pair(Traders)
@@ -72,20 +71,21 @@ def evolve(capital, cuotas, epochs, population_size=500):
             next_generation += [child1, child2]
         
         Traders = next_generation[:population_size]
-    
-    plt.plot(range(1, epochs+1), best_fitness_over_time)
+        
+    plt.plot(range(0, epochs), best_fitness_over_time)
     plt.xlabel('Época')
     plt.ylabel('Mejor Aptitud')
     plt.title('Evolución')
     plt.show()
     
-    return Traders[0].weights
+    return Traders[0].weights, Traders[0].Id
 
 
 cuotas =  np.array([8.51, 10.68, 12.24, 13.66, 15.37, 17.15, 19.66, 24.69])
-weights = evolve(1000000, cuotas, 500, population_size=500)
-prof_weights = np.array([0.185, 0.152, 0.137, 0.125, 0.116, 0.107, 0.096, 0.082])
-pesos_yo = np.array([0.20221668, 0.16116429, 0.14055939, 0.12629439, 0.11193354, 0.10060435,0.08754264, 0.06968473])
-#print(np.min(1000000*(pesos_yo*cuotas-1)))
-#print(np.min(1000000*(prof_weights*cuotas-1)))
-print("Mejores pesos encontrados:", weights)
+capital = 1000000
+weights = evolve(capital, cuotas, 500, 500)
+print("Mejores pesos encontrados:", np.round(weights[0],3), "con el trader #", weights[1])
+
+doc_weights = np.array([0.185, 0.152, 0.137, 0.125, 0.116, 0.107, 0.096, 0.082])
+print("Retorno con los pesos encontrados:   ",np.min(1000000*(weights[0]*cuotas-1)))
+print("Retorno con los pesos del documento: ",np.min(1000000*(doc_weights*cuotas-1)))
