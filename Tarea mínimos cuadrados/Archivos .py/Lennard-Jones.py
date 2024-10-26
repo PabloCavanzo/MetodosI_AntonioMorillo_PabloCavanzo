@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
 import random as rd
+import sys
 
 class ParticleSystem:
     Unique_ids = 0
@@ -12,7 +13,7 @@ class ParticleSystem:
         ParticleSystem.Unique_ids += 1
 
         if positions is None:
-            self.positions = [np.random.uniform(-10, 10, 3) for _ in range(size)]
+            self.positions = [np.random.uniform(-1, 1, 3) for _ in range(size)]
         else:
             self.positions = positions
 
@@ -62,12 +63,14 @@ def crossover(parent1, parent2):
 def generate_population(size):
     return [ParticleSystem() for _ in range(size)]
 
-def evolve(epochs, population_size=100):
+def evolve(epochs, population_size=50):
     systems = generate_population(population_size)
     fitness_history = []
 
     for i in range(1, epochs + 1):
-        print(f"Época #{i}...")
+        sys.stdout.write(f"\rÉpoca #{i}...")
+        sys.stdout.flush()
+        
         systems.sort(key=lambda particle: particle.fitness, reverse=True)
         fitness_history.append(-systems[0].fitness)
 
@@ -82,9 +85,11 @@ def evolve(epochs, population_size=100):
 
         systems = next_generation[:population_size]
 
+    sys.stdout.write("\n")
+    
     return systems[0].positions, fitness_history, systems[0].fitness
 
-positions, fitness_history, total_energy = evolve(50)
+positions, fitness_history, total_energy = evolve(1000)
 positions = np.array(positions)
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
@@ -104,9 +109,9 @@ ax2.set_xlabel('X', fontsize=12)
 ax2.set_ylabel('Y', fontsize=12)
 ax2.set_zlabel('Z', fontsize=12)
 ax2.set_title('Distribución final de las partículas en R3', fontsize=14, fontweight='bold')
-ax2.set_xlim(-12, 12)
-ax2.set_ylim(-12, 12)
-ax2.set_zlim(-12, 12)
+ax2.set_xlim(-1.2, 1.2)
+ax2.set_ylim(-1.2, 1.2)
+ax2.set_zlim(-1.2, 1.2)
 ax2.grid(True, linestyle='--', alpha=0.4)
 
 def update(angle):
@@ -114,12 +119,11 @@ def update(angle):
 
 ani = FuncAnimation(fig, update, frames=np.arange(0, 360, 2), interval=50)
 
-plt.tight_layout()
-plt.show()
-
-print("\n")
-print("Posiciones encontradas:")
+print("\nPosiciones encontradas:")
 for pos in range(len(positions)):
     print(f"- Posición #{pos}: x = {round(positions[pos][0],3)}, y = {round(positions[pos][1],3)}, z = {round(positions[pos][2],3)}")
 
-print(f"Energía Total: {-total_energy}")
+print(f"\nEnergía Total: {total_energy}")
+
+plt.tight_layout()
+plt.show()
