@@ -22,8 +22,11 @@ def correlation(k, size):
 
 def random_sphere(r, n_points):
     rho = random_sequence(n_points, 0, r, rnd.random())**(1/3)
-    theta = random_sequence(n_points, 0, 2 * np.pi, rnd.random())
-    phi = random_sequence(n_points, 0, np.pi, rnd.random())
+    theta = random_sequence(n_points, 0, 1, rnd.random())
+    phi = random_sequence(n_points, 0, 1, rnd.random())
+    theta = 2*np.pi*theta
+    phi = np.arccos(2*phi-1)
+    
     x = rho * np.cos(theta) * np.sin(phi)
     y = rho * np.sin(theta) * np.sin(phi)
     z = rho * np.cos(phi)
@@ -60,7 +63,7 @@ def moment_of_inertia(axis, n_points, r):
         integral = np.sum(y**2 + z**2)
     elif axis == "y":
         integral = np.sum(x**2 + z**2) 
-    elif axis == "z":
+    else:
         integral = np.sum(x**2 + y**2)
     
     integral /= n_points
