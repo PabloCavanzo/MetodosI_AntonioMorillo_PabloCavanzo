@@ -71,10 +71,12 @@ def product_of_inertia(plane, n_points, r):
     elif plane == "zx":
         integral = np.sum(z * x)
     integral /= n_points
-    return integral
+    integral *= 4*np.pi/3
+    
+    return -integral
 
 r = 1
-n_points = 10000
+n_points = 20000
 I_x = moment_of_inertia("x", n_points, r)
 I_y = moment_of_inertia("y", n_points, r)
 I_z = moment_of_inertia("z", n_points, r)
