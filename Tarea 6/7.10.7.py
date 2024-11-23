@@ -29,6 +29,8 @@ p0 = np.array([media, np.std(data)])
 result = spo.minimize(JointLikelihood, p0, args=(bootstrap_means))
 mu_estimated, sigma_estimated = result.x
 
+print("Media:", media)
+print("Mediana:", mediana)
 print(f"Estimación de la media (μ): {mu_estimated:.2f}")
 print(f"Estimación de la desviación estándar (σ): {sigma_estimated:.2f}")
 
@@ -59,5 +61,3 @@ axs[1].grid(True)
 
 plt.tight_layout()
 plt.show()
-
-print(probabilidad(mu_estimated, mu_estimated, sigma_estimated))
