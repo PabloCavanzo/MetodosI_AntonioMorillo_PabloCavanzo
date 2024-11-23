@@ -41,9 +41,10 @@ def get_prob_state(hidden, transmission, emission, observed, prior):
 possible_obs, max_prob = get_prob_state(possible_hidden_states, T, E, Obs, prior)
 max_obs = [Dict2[int(i)] for i in possible_hidden_states[max_prob][0]]
 obs_stat = [Dict[int(i)] for i in Obs]
+max_prob0 = possible_obs[max_prob][0].copy()
 
 plt.plot(possible_obs, color="black")
-plt.axhline(possible_obs[max_prob][0], color="red", linestyle="--")
+plt.axhline(max_prob0, color="red", linestyle="--")
 plt.grid(True)
 plt.show()
 
@@ -54,5 +55,5 @@ for observation in possible_observable_states:
     pt += np.sum(possible)
 
 print("Dado el estado observable", obs_stat, "este tiene una probabilidad de", str(np.sum(possible_obs) * 100) + "%.")
-print("\nLa secuencia observable más probable que puede ocurrir es:", max_obs, "\nCon una probabilidad del:", str(possible_obs[max_prob][0] * 100) + "%.")
+print("\nLa secuencia no observable más probable que puede ocurrir es:", max_obs, "\nCon una probabilidad del:", str(max_prob0 * 100) + "%.")
 print("\nLa suma de las posibilidades de todos los estados observables es:", pt)
