@@ -27,8 +27,8 @@ def integral(a, b, fun, n_points):
 
 inte, x, y, x2, y2 = integral(0, 1, function, 10000)
 x0 = np.linspace(0, 1, 50)
-plt.scatter(x, y, color="r",s=5)
-plt.scatter(x2, y2, color="b",s=5)
+plt.scatter(x, y, color="r",s=2)
+plt.scatter(x2, y2, color="b",s=2)
 plt.plot(x0, function(x0), color="black")
 plt.show()
 print("Integral aproximada: ", inte)
