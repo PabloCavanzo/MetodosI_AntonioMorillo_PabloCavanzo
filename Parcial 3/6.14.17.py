@@ -40,7 +40,7 @@ def get_prob_state(hidden, transmission, emission, observed, prior):
     max_i = np.where(probabilities == np.max(probabilities))
     return probabilities, max_i
 
-df = pd.DataFrame({"Estados Ocultos":[state for state in possible_hidden_states], "Probabilidad": [GetProb(T,E,Obs,state,prior) for state in possible_hidden_states]})
+df = pd.DataFrame({"Estados Ocultos":[[Dict2[i] for i in state] for state in possible_hidden_states], "Probabilidad": [GetProb(T,E,Obs,state,prior) for state in possible_hidden_states]})
 total_prob = df["Probabilidad"].sum()
 df["Probabilidad"] = df["Probabilidad"] * 100
 df["Probabilidad"] = df["Probabilidad"] / total_prob  
@@ -61,7 +61,7 @@ plt.grid(True)
 plt.show()
 
 possible_observable_states = possible_hidden_states.copy()
-df2 = pd.DataFrame({"Estado Observable":[state for state in possible_observable_states], "Probabilidad": [np.sum(get_prob_state(possible_hidden_states,T,E,observation,prior)[0]) for observation in possible_observable_states]})
+df2 = pd.DataFrame({"Estado Observable":[[Dict[i] for i in state] for state in possible_observable_states], "Probabilidad": [np.sum(get_prob_state(possible_hidden_states,T,E,observation,prior)[0]) for observation in possible_observable_states]})
 df2_sorted = df2.sort_values(by="Probabilidad", ascending=False).reset_index(drop=True)
 df2_sorted["Probabilidad Acumulada"] = df2_sorted["Probabilidad"].cumsum()
 print("")
