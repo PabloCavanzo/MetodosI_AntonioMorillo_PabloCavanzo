@@ -40,12 +40,13 @@ def get_prob_state(hidden, transmission, emission, observed, prior):
     max_i = np.where(probabilities == np.max(probabilities))
     return probabilities, max_i
 
-df = pd.DataFrame({"Estados Ocultos":[state for state in possible_hidden_states], "Probabilidad": [GetProb(T,E,Obs,state,prior)*100 for state in possible_hidden_states]})
+df = pd.DataFrame({"Estados Ocultos":[state for state in possible_hidden_states], "Probabilidad": [GetProb(T,E,Obs,state,prior) for state in possible_hidden_states]})
 total_prob = df["Probabilidad"].sum()
+df["Probabilidad"] = df["Probabilidad"] * 100
 df["Probabilidad"] = df["Probabilidad"] / total_prob  
 df_sorted = df.sort_values(by="Probabilidad", ascending=False).reset_index(drop=True)
 df_sorted["Probabilidad Acumulada"] = df_sorted["Probabilidad"].cumsum()
-df_subset = df_sorted[df_sorted["Probabilidad Acumulada"] <= 0.2]
+df_subset = df_sorted[df_sorted["Probabilidad Acumulada"] <= 20]
 
 print(df_subset)
 
@@ -60,11 +61,18 @@ plt.grid(True)
 plt.show()
 
 possible_observable_states = possible_hidden_states.copy()
+df2 = pd.DataFrame({"Estado Observable":[state for state in possible_observable_states], "Probabilidad": [np.sum(get_prob_state(possible_hidden_states,T,E,observation,prior)[0]) for observation in possible_observable_states]})
+df2_sorted = df2.sort_values(by="Probabilidad", ascending=False).reset_index(drop=True)
+df2_sorted["Probabilidad Acumulada"] = df2_sorted["Probabilidad"].cumsum()
+print("")
+print(df2_sorted)
+
 pt = 0
+
 for observation in possible_observable_states:
     possible, max_prob = get_prob_state(possible_hidden_states, T, E, observation, prior)
     pt += np.sum(possible)
 
-print("\nDado el estado observable", obs_stat, "este tiene una probabilidad de", str(np.sum(possible_obs) * 100) + "%.")
-print("\nLa secuencia no observable más probable que puede ocurrir es:", max_obs, "\nCon una probabilidad del:", str(max_prob0/total_prob * 100) + "%.")
+print("\nDado el estado observable", obs_stat, "este tiene una probabilidad del", str(np.sum(possible_obs) * 100) + "% de ocurrir.")
+print("La secuencia no observable más probable que puede ocurrir es:", max_obs, "\nCon una probabilidad del:", str(max_prob0/total_prob * 100) + "%.")
 print("\nLa suma de las posibilidades de todos los estados observables es:", pt)
